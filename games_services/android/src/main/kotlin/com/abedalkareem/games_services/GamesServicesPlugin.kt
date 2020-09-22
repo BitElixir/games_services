@@ -82,11 +82,8 @@ class GamesServicesPlugin(private var activity: Activity? = null) : FlutterPlugi
     achievementClient = Games.getAchievementsClient(activity, googleSignInAccount)
     leaderboardsClient = Games.getLeaderboardsClient(activity, googleSignInAccount)
 
-    val playersClient = Games.getPlayersClient(activity!!, googleSignInAccount)
-    playersClient.getCurrentPlayer()?.addOnSuccessListener { innerTask->
-      playerID = innerTask.playerId
-      displayName = innerTask.displayName
-    }
+    playerID = googleSignInAccount.getId()
+    displayName = googleSignInAccount.getDisplayName()
 
     // Set the popups view.
     val gamesClient = Games.getGamesClient(activity, GoogleSignIn.getLastSignedInAccount(activity)!!)
