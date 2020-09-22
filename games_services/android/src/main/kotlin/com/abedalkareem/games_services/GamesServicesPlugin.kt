@@ -83,7 +83,7 @@ class GamesServicesPlugin(private var activity: Activity? = null) : FlutterPlugi
     leaderboardsClient = Games.getLeaderboardsClient(activity, googleSignInAccount)
 
     val playersClient = Games.getPlayersClient(activity!!, googleSignInAccount)
-    playersClient.currentPlayer?.addOnSuccessListener { innerTask->
+    playersClient.getCurrentPlayer()?.addOnSuccessListener { innerTask->
       playerID = innerTask.playerId
       displayName = innerTask.displayName
     }
