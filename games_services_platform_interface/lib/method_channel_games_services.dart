@@ -39,6 +39,16 @@ class MethodChannelGamesServices extends GamesServicesPlatform {
     return await _channel.invokeMethod("showLeaderboards", {"iOSLeaderboardID": iOSLeaderboardID});
   }
 
+  /// get the signed in players ID
+  Future<String> playerID() async {
+    return await _channel.invokeMethod("playerID");
+  }
+
+  /// get the signed in players display name
+  Future<String> displayName() async {
+    return await _channel.invokeMethod("displayName");
+  }
+
   Future<String> signIn() async {
     if (Helpers.isPlatformAndroid) {
       return await _channel.invokeMethod("silentSignIn");

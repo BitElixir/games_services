@@ -35,6 +35,8 @@ class GamesServicesPlugin(private var activity: Activity? = null) : FlutterPlugi
   private var activityPluginBinding: ActivityPluginBinding? = null
   private var channel: MethodChannel? = null
   private var pendingOperation: PendingOperation? = null
+  private var playerID: String? = null
+  private var displayName: String? = null
   //endregion
 
   companion object {
@@ -79,6 +81,12 @@ class GamesServicesPlugin(private var activity: Activity? = null) : FlutterPlugi
     val activity = this.activity!!
     achievementClient = Games.getAchievementsClient(activity, googleSignInAccount)
     leaderboardsClient = Games.getLeaderboardsClient(activity, googleSignInAccount)
+
+    val playersClient = Games.getPlayersClient(activity!!, googleSignInAccount)
+    playersClient.currentPlayer?.addOnSuccessListener { innerTask->
+      playerID = innerTask.playerId
+      displayName = innerTask.displayName
+    }
 
     // Set the popups view.
     val gamesClient = Games.getGamesClient(activity, GoogleSignIn.getLastSignedInAccount(activity)!!)
@@ -250,6 +258,12 @@ class GamesServicesPlugin(private var activity: Activity? = null) : FlutterPlugi
       Methods.showAchievements -> {
         showAchievements(result)
       }
+      Methods.playerID -> {
+        result.success(playerID)
+      }
+      Methods.displayName -> {
+        result.success(displayName)
+      }
       Methods.silentSignIn -> {
         silentSignIn(result)
       }
@@ -266,4 +280,6 @@ object Methods {
   const val showLeaderboards = "showLeaderboards"
   const val showAchievements = "showAchievements"
   const val silentSignIn = "silentSignIn"
+  const val playerID = "playerID"
+  const val displayName = "displayName"
 }

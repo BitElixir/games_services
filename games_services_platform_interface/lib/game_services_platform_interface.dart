@@ -65,6 +65,16 @@ abstract class GamesServicesPlatform extends PlatformInterface {
     throw UnimplementedError("not implemented.");
   }
 
+  /// get the signed in players ID
+  Future<String> playerID() async {
+    throw UnimplementedError("not implemented.");
+  }
+
+  /// get the signed in players display name
+  Future<String> displayName() async {
+    throw UnimplementedError("not implemented.");
+  }
+
   /// To sign in the user.
   /// You need to call the sign in before making any action,
   /// (like sending a score or unlocking an achievement).

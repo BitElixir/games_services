@@ -47,6 +47,15 @@ class GamesServices {
     return await GamesServicesPlatform.instance.showLeaderboards(iOSLeaderboardID: iOSLeaderboardID);
   }
 
+   /// Retrieve player info namely playerId and displayName
+  static Future<String> playerID() async {
+    return await GamesServicesPlatform.instance.playerID();
+  }
+
+  static Future<String> displayName() async {
+    return await GamesServicesPlatform.instance.displayName();
+  }
+
   /// To sign in the user.
   /// You need to call the sign in before making any action,
   /// (like sending a score or unlocking an achievement).
